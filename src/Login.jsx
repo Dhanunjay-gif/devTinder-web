@@ -1,33 +1,48 @@
-import React from 'react'
+import React from "react";
+import { useState } from "react";
+import axios from 'axios';
 
 const Login = () => {
+  const [emailId,setEmailId] =useState("dhanu@gmail.com");
+  const [password,setPassword] =useState("Dhanu@123");
+  const handleLogin = async () =>{
+    try{
+      const res = await axios.post("http://localhost:5000/login", { email:emailId, password }, { withCredentials: true });
+      console.log(res.data)
+    }
+    catch(err){
+      console.log("ERROR :"+err)
+    }
+  }
   return (
-    <div>
-            <div className="hero bg-base-200 min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Login now!</h1>
-            <p className="py-6">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-              quasi. In deleniti eaque aut repudiandae et a id nisi.
-            </p>
-          </div>
-          <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-            <div className="card-body">
-              <fieldset className="fieldset">
-                <label className="fieldset-label">Email</label>
-                <input type="email" className="input" placeholder="Email" />
-                <label className="fieldset-label">Password</label>
-                <input type="password" className="input" placeholder="Password" />
-                <div><a className="link link-hover">Forgot password?</a></div>
-                <button className="btn btn-neutral mt-4">Login</button>
-              </fieldset>
+    <div className="flex items-center justify-center min-h-screen bg-base-300">
+      <div className="card bg-base-100 w-full max-w-sm shadow-2xl p-8">
+        <h1 className="text-5xl font-bold text-center">Login now!</h1>
+        <div className="card-body">
+          <fieldset className="fieldset">
+            <label className="fieldset-label block text-left">Email</label>
+            <input 
+              type="email" 
+              value={emailId}
+              className="input w-full border-2 focus:border-gray-600 focus:ring-gray-400 focus:outline-none transition-all duration-200"
+              placeholder="Email" onChange={(e)=>setEmailId(e.target.value)}
+            />
+            <label className="fieldset-label block text-left mt-4">Password</label>
+            <input 
+              type="text"
+              value={password} 
+              className="input w-full border-2 focus:border-gray-600 focus:ring-gray-400 focus:outline-none transition-all duration-200"
+              placeholder="Password"  onChange={(e)=>setPassword(e.target.value)}
+            />
+            <div className="text-left mt-2">
+              <a className="link link-hover">Forgot password?</a>
             </div>
-          </div>
+            <button className="btn btn-neutral w-full mt-4" onClick={handleLogin}>Login</button>
+          </fieldset>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Login;
