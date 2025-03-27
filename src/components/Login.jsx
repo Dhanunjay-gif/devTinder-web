@@ -8,10 +8,12 @@ import { BASE_URL } from "../utils/constants";
 
 
 const Login = () => {
-  const [emailId,setEmailId] =useState("dhanu@gmail.com");
-  const [password,setPassword] =useState("Dhanu@123");
+  const [emailId,setEmailId] =useState("latha@gmail.com");
+  const [password,setPassword] =useState("Latha@123");
+  const [error,setError] =useState("")
   const dispatch= useDispatch()
   const navigate =useNavigate();
+
   const handleLogin = async () =>{
     try{
       const res = await axios.post(BASE_URL+"/login", { email:emailId, password }, { withCredentials: true });
@@ -19,7 +21,7 @@ const Login = () => {
       navigate("/")
     }
     catch(err){
-      console.log("ERROR :"+err)
+      setError(err?.response?.data.message)
     }
   }
   return (
@@ -44,6 +46,7 @@ const Login = () => {
             />
             <div className="text-left mt-2">
               <a className="link link-hover">Forgot password?</a>
+              <p className="mt-2 text-red-400">{error}</p>
             </div>
             <button className="btn btn-neutral w-full mt-4" onClick={handleLogin}>Login</button>
           </fieldset>
