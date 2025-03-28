@@ -4,6 +4,7 @@ import { BASE_URL } from '../utils/constants';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import axios from 'axios';
+import { addFeed } from '../utils/feedSlice';
 
 const EditProfile = ({ user }) => {
     const [firstName, setFirstName] = useState(user.firstName);
@@ -13,21 +14,21 @@ const EditProfile = ({ user }) => {
     const [gender, setGender] = useState(user.gender);
     const [about, setAbout] = useState(user.about);
     const [error,setError] =useState("")
+    const [responseMsg,setResponseMsg]= useState(null)
     const dispatch=useDispatch()
     const saveProfile = async () => {
+        
         try {
-            console.log("1");
-            console.log("Sending PATCH request to:", BASE_URL+"/profile/edit", { firstName, lastName, photourl, age, gender, about });
             const res = await axios.patch(
                 BASE_URL + "/profile/edit",
-                { firstName, lastName, photourl, age, gender, about},
-                { withCredentials: true }
+                { firstName, lastName, photourl, gender, age, about},
+                { withCredentials: true },
             );
-            console.log("2");
-            
-            console.log("res:", res.data);
-    
             dispatch(addUser(res?.data?.data));
+            setResponseMsg(res?.data)
+            setTimeout(()=>{
+                setResponseMsg(null)
+            },2000)
         } catch (err) {
             console.error("Error updating profile:", err);
             setError(err.response?.data || "Something went wrong"); // ✅ Prevents crashes if err.response is undefined
@@ -89,6 +90,7 @@ const EditProfile = ({ user }) => {
                                 onChange={(e) => setAbout(e.target.value)}
                             />
                             <button className="btn btn-neutral w-full mt-4" onClick={saveProfile}>Save Profile</button>
+                            {responseMsg && <p className='text-green-400'>{responseMsg.message}</p>}
                         </fieldset>
                     </div>
                 </div>
