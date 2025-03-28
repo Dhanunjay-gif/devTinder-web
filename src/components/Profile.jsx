@@ -6,7 +6,7 @@ import Loading from '../Loading/Loading'
 const Profile = () => {
   const user =useSelector(store=>store.user)
   if(!user){
-    <Loading/>
+    return <Loading/>
   }
   return user ? (
     <div>
