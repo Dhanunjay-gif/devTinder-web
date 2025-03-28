@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '../utils/constants';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,9 +9,13 @@ import ConnectionRequestCard from './ConnectionRequestCard';
 const Requests = () => {
     const dispatch = useDispatch();
     const RequestData = useSelector(store => store.request);
+    const [loading,setLoading] =useState(true)
 
     const fetchRequest = async () => {
-        if (RequestData?.length) return;
+        if (RequestData?.length){
+            setLoading(false)
+            return;
+        }
         try {
             const res = await axios.get(BASE_URL + "/user/requests/recieved", {
                 withCredentials: true
@@ -19,6 +23,9 @@ const Requests = () => {
             dispatch(addRequest(res?.data?.data || []));
         } catch (err) {
             console.error("Error fetching connections:", err);
+        }
+        finally{
+            setLoading(false)
         }
     };
 
@@ -44,7 +51,6 @@ const Requests = () => {
                             <th className="p-4 text-center w-1/4">About</th>
                         </tr>
                         </thead>
-
                         {/* Table Body */}
                         <tbody>
                             {RequestData?.map(request =>{

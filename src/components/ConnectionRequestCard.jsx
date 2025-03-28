@@ -1,8 +1,10 @@
 import React from 'react';
+import CardSkeletonEffect from '../Loading/CardSkeletonEffect';
 
 const ConnectionRequestCard = ({ user }) => {
-  const { firstName, lastName, age, about, gender, photourl, skills } = user;
 
+  const { firstName, lastName, age, about, gender, photourl, skills } = user;
+  
   return (
     <tr className="border-b border-gray-300 hover:cursor-pointer">
       {/* Name and Profile */}

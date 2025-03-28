@@ -20,10 +20,6 @@ const NavBar = () => {
         }
     };
 
-    if (!user) {
-        return <Loading/>
-    }
-
     return user && (
         <div>
             <div className="navbar bg-base-300">
