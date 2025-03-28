@@ -20,15 +20,18 @@ const NavBar = () => {
         }
     };
 
-    // if (!user) {
-    //     return <Loading/>
-    // }
+    if (!user) {
+        return <Loading/>
+    }
 
     return user && (
         <div>
             <div className="navbar bg-base-300">
                 <div className="flex-1">
-                    <a className="btn btn-ghost text-xl">🧑‍💻 devTinder</a>
+                    <Link to="/" className="btn btn-ghost text-xl">🧑‍💻 DevTinder</Link>
+                </div>
+                <div>
+                    <Link to='/' className='mr-5 hover:text-blue-300'>Home</Link>
                 </div>
                 <div className="flex gap-2">
                     {user && (
@@ -51,6 +54,7 @@ const NavBar = () => {
                                         </Link>
                                     </li>
                                     <li><Link to="/connections">Connections</Link></li>
+                                    <li><Link to="/requests">Requests</Link></li>
                                     <li onClick={handleLogout}><Link to="#">Logout</Link></li>
                                 </ul>
                             </div>
