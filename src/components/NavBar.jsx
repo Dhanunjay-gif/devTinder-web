@@ -20,9 +20,9 @@ const NavBar = () => {
         }
     };
 
-    if (!user) {
-        return <Loading/>
-    }
+    // if (!user) {
+    //     return <Loading/>
+    // }
 
     return user && (
         <div>
