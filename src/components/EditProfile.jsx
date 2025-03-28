@@ -74,23 +74,38 @@ const EditProfile = ({ user }) => {
                                 onChange={(e) => setAge(e.target.value)}
                             />
                             <label className="fieldset-label block text-left">Gender</label>
-                            <input 
+                            {/* <input 
                                 type="text" 
                                 value={gender}
-                                className="input w-full border-2 focus:border-gray-600 focus:ring-gray-400 focus:outline-none transition-all duration-200"
+                                className="input w-full border-2 focus:border-gray-600 focus:ring-gray-400 focus:outline-none transition-all duration-200 hover:cursor-pointer"
                                 placeholder="Gender" 
-                                onChange={(e) => setGender(e.target.value)}
-                            />
+                                onChange={(e) => setGender(e.target.value)} onClick={<></>}
+                            /> */}
+                            <select defaultValue="selectgender" className="select input w-full border-2 focus:border-gray-600 focus:ring-gray-400 focus:outline-none transition-all duration-200 hover:cursor-pointer"
+                             value={gender} onChange={(e)=>setGender(e.target.value)}>
+                                {/* <option disabled={true}>--Select--</option> */}
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Others</option>
+                            </select>
                             <label className="fieldset-label block text-left">About</label>
-                            <input 
+                            {/* <input 
                                 type="text" 
                                 value={about}
                                 className="input w-full border-2 focus:border-gray-600 focus:ring-gray-400 focus:outline-none transition-all duration-200"
                                 placeholder="About" 
                                 onChange={(e) => setAbout(e.target.value)}
-                            />
+                            /> */}
+                            <textarea placeholder="Bio" className="textarea textarea-xs border-2 focus:border-gray-600 focus:ring-gray-400 focus:outline-none transition-all duration-200"
+                             value={about} onChange={(e)=>setAbout(e.target.value)}></textarea>
                             <button className="btn btn-neutral w-full mt-4" onClick={saveProfile}>Save Profile</button>
-                            {responseMsg && <p className='text-green-400'>{responseMsg.message}</p>}
+                            {
+                            responseMsg && <div className="toast toast-top toast-center">
+                                <div className="alert alert-success">
+                                    <span>{responseMsg.message}.</span>
+                                </div>
+                                </div>
+                            }
                         </fieldset>
                     </div>
                 </div>

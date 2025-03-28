@@ -9,6 +9,7 @@ import Loading from './Loading/Loading'
 import appStore from './utils/appStore'
 import { Provider } from 'react-redux'
 import Feed from './components/Feed'
+import Connections from './components/Connections'
 
 function App() {
 
@@ -23,7 +24,8 @@ function App() {
               <Route path="/" element={<Body/>}>
                 <Route path="/" element={<Feed/>}/>
                 <Route path="/login" element={<Login/>}/>
-                <Route path="/profile/edit" element={<Profile/>}/>
+                <Route path="/profile" element={<Profile/>}/>
+                <Route path="/Connections" element={<Connections/>}/>
               </Route>
             </Routes>
           </Suspense>
