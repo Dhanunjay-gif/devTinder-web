@@ -14,20 +14,25 @@ const EditProfile = ({ user }) => {
     const [about, setAbout] = useState(user.about);
     const [error,setError] =useState("")
     const dispatch=useDispatch()
-    const saveProfile = async () =>{
-        try{
-            const res = await axios.patch(BASE_URL+"/profile/edit",{firstName, lastName, photourl, age, gender, about},
-                {
-                withCredentials:true
-            },
-            )
-            console.log("res:"+res.data)
-            dispatch(addUser(res?.data?.data))
+    const saveProfile = async () => {
+        try {
+            console.log("1");
+            console.log("Sending PATCH request to:", BASE_URL+"/profile/edit", { firstName, lastName, photourl, age, gender, about });
+            const res = await axios.patch(
+                BASE_URL + "/profile/edit",
+                { firstName, lastName, photourl, age, gender, about},
+                { withCredentials: true }
+            );
+            console.log("2");
+            
+            console.log("res:", res.data);
+    
+            dispatch(addUser(res?.data?.data));
+        } catch (err) {
+            console.error("Error updating profile:", err);
+            setError(err.response?.data || "Something went wrong"); // ✅ Prevents crashes if err.response is undefined
         }
-        catch(err){
-            setError(err?.response?.data) 
-          }
-    }
+    };
     return (
         <div className="flex justify-center items-center space-x-10">
             <div className="flex items-center justify-center bg-base-200">
