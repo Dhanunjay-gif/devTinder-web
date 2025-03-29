@@ -9,7 +9,7 @@ const Profile = () => {
     return <Loading/>
   }
   return user ? (
-    <div>
+    <div className='bg-base-300'>
       <EditProfile user={user} props={false}/>
     </div>
   ) : null
