@@ -20,7 +20,7 @@ const NavBar = () => {
         }
     };
 
-    return user && (
+    return  (
         <div>
             <div className="navbar bg-base-300">
                 <div className="flex-1">
