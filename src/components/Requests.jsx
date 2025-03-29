@@ -71,7 +71,7 @@ const Requests = () => {
                                         Confirm
                                     </button>
                                     <button className="bg-gray-600 px-4 py-2 rounded-lg">
-                                        Delete
+                                        Reject
                                     </button>
                                 </div>
                             </div>

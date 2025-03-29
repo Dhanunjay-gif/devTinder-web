@@ -10,7 +10,7 @@ const Profile = () => {
   }
   return user ? (
     <div>
-      <EditProfile user={user}/>
+      <EditProfile user={user} props={false}/>
     </div>
   ) : null
 }

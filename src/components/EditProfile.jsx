@@ -6,7 +6,7 @@ import { addUser } from '../utils/userSlice';
 import axios from 'axios';
 import { addFeed } from '../utils/feedSlice';
 
-const EditProfile = ({ user }) => {
+const EditProfile = ({ user,props }) => {
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
     const [photourl, setPhotourl] = useState(user.photourl);
@@ -111,7 +111,7 @@ const EditProfile = ({ user }) => {
                 </div>
             </div>
             <div className="flex items-center justify-center">
-                <UserCard user={{ firstName, lastName, photourl, age, gender, about }} />
+                <UserCard user={{ firstName, lastName, photourl, age, gender, about }} props={props} />
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user,props }) => {
   const { firstName, lastName, photourl, age, gender, about,skills } = user;
 
   return (
@@ -18,10 +18,12 @@ const UserCard = ({ user }) => {
         {gender && <p className="text-gray-600 capitalize">Gender: {gender}</p>}
         {skills && <p className="text-gray-700 mt-2">Skills: {skills.join(", ")}</p> }
         {about && <p className="text-gray-700 mt-2">{about}</p> }
+        { props &&
         <div className="card-actions justify-center mt-4">
           <button className="btn btn-outline btn-error">Ignore</button>
           <button className="btn btn-outline btn-success">Interested</button>
         </div>
+        }
       </div>
     </div>
   );
