@@ -10,14 +10,11 @@ const Connections = () => {
     const dispatch = useDispatch();
     const connectionData = useSelector((store) => store.connection);
     const [loading, setLoading] = useState(true);
-    const location =useLocation();
+    const location = useLocation(); 
 
     const fetchConnection = async () => {
-        if (connectionData?.length) {
-            setLoading(false);
-            return;
-        }
         try {
+            setLoading(true);
             const res = await axios.get(BASE_URL + "/user/connections", {
                 withCredentials: true,
             });
@@ -31,7 +28,7 @@ const Connections = () => {
 
     useEffect(() => {
         fetchConnection();
-    }, [location]);a
+    }, [location]); 
 
     return (
         <div className="p-6 flex flex-col items-center">
@@ -52,14 +49,11 @@ const Connections = () => {
                             key={connection._id}
                             className="bg-white shadow-lg p-5 rounded-xl flex items-center text-left w-full transition-transform transform hover:scale-105"
                         >
-                            {/* Profile Picture on the Left */}
                             <img
                                 src={connection.photourl}
                                 alt="User"
                                 className="h-20 w-20 rounded-full object-cover border-2 border-gray-300 mr-4"
                             />
-
-                            {/* User Details on the Right */}
                             <div className="flex flex-col">
                                 <h2 className="text-lg font-semibold text-gray-800">
                                     {connection.firstName} {connection.lastName}
