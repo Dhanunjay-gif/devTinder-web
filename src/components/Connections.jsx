@@ -4,11 +4,13 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnection } from "../utils/connectionSlice";
 import CardSkeletonEffect from "../Loading/CardSkeletonEffect";
+import { useLocation } from "react-router-dom";
 
 const Connections = () => {
     const dispatch = useDispatch();
     const connectionData = useSelector((store) => store.connection);
     const [loading, setLoading] = useState(true);
+    const location =useLocation();
 
     const fetchConnection = async () => {
         if (connectionData?.length) {
@@ -29,7 +31,7 @@ const Connections = () => {
 
     useEffect(() => {
         fetchConnection();
-    }, []);
+    }, [location]);a
 
     return (
         <div className="p-6 flex flex-col items-center">

@@ -2,13 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const requestSlice =createSlice({
     name:'request',
-    initialState:null,
+    initialState:[],
     reducers:{
         addRequest: (state,action)=>{
             return action.payload;
         },
         removeRequest: (state,action)=>{
-            return null
+            const newArray=state.filter(res=>res?.fromUserId?._id!==action.payload)
+            return newArray;
         }
     }
 });

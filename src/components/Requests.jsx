@@ -2,15 +2,29 @@ import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addRequest } from "../utils/requestSlice";
+import { addRequest, removeRequest } from "../utils/requestSlice";
 import ConnectionRequestCard from "./ConnectionRequestCard";
 import Loading from "../Loading/Loading";
 
 const Requests = () => {
     const dispatch = useDispatch();
-    const RequestData = useSelector((store) => store.request);
     const [loading, setLoading] = useState(true);
+    const RequestData = useSelector((store) => store.request);
 
+    const reviewRequest = async (status,_id,requestData) =>{
+        try{
+
+            const res = await axios.post(BASE_URL+"/request/review/"+status+"/"+_id,{},{withCredentials:true});
+            dispatch(removeRequest(_id));
+            if (status === "accepted") {
+                dispatch(addConnection(requestData));
+            }
+        }
+        catch(err){
+            console.log("Something wend wrong :",err.message)
+        }
+    }
+    
     const fetchRequest = async () => {
         if (RequestData?.length) {
             setLoading(false);
@@ -30,7 +44,7 @@ const Requests = () => {
 
     useEffect(() => {
         fetchRequest();
-    }, []);
+    },[]);
 
     return (
         <div className="p-6">
@@ -39,15 +53,15 @@ const Requests = () => {
             {loading ? (
                 <div className="text-center text-gray-500 flex justify-center"><Loading/></div>
             ) : RequestData?.length === 0 ? (
-                <p className="text-center text-gray-500">No Requests Found</p>
+                <h1 className="text-center text-gray-500 text-4xl my-50">No Requests Found</h1>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {RequestData?.map((request) => {
                         const requestData = request?.fromUserId;
-                        const {firstName,lastName,age,skils,photourl,about}=requestData;
+                        const {firstName,lastName,age,skils,photourl,about,_id}=requestData;
                         return (
                             <div
-                                key={requestData._id}
+                                key={_id}
                                 className="bg-gray-200 shadow-md p-4 rounded-lg flex flex-col items-center"
                             >
                                 {/* Profile Picture */}
@@ -67,10 +81,10 @@ const Requests = () => {
 
                                 {/* Buttons */}
                                 <div className="mt-3 flex gap-2">
-                                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg">
-                                        Confirm
+                                    <button className="bg-blue-500 text-white px-4 py-2 rounded-lg" onClick={()=>reviewRequest("accepted",_id,requestData)}>
+                                        Accept
                                     </button>
-                                    <button className="bg-gray-600 px-4 py-2 rounded-lg">
+                                    <button className="bg-gray-600 px-4 py-2 rounded-lg" onClick={()=>reviewRequest("rejected",_id)}>
                                         Reject
                                     </button>
                                 </div>
