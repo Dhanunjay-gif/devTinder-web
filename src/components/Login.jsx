@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 
@@ -39,7 +39,7 @@ const Login = () => {
             />
             <label className="fieldset-label block text-left mt-4">Password</label>
             <input 
-              type="text"
+              type="password"
               value={password} 
               className="input w-full border-2 focus:border-gray-600 focus:ring-gray-400 focus:outline-none transition-all duration-200"
               placeholder="Password"  onChange={(e)=>setPassword(e.target.value)}
@@ -49,6 +49,9 @@ const Login = () => {
               <p className="mt-2 text-red-400">{error}</p>
             </div>
             <button className="btn btn-neutral w-full mt-4" onClick={handleLogin}>Login</button>
+            <div className="mt-2">
+              <p className="underline text-blue-200"><Link to="/signup">New User? Signup Here</Link></p>
+            </div>
           </fieldset>
         </div>
       </div>

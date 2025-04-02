@@ -16,18 +16,20 @@ const Body = () =>{
         if(userData) return
         try {
             const res = await axios.get(`${BASE_URL}/profile/view`, { withCredentials: true });
-            dispatch(addUser(res.data.data));
+            dispatch(addUser(res?.data?.data));
         } catch (err) {
             if (err.response?.status === 401) {  
                 navigate("/login");
             } else {
-                console.error("Error fetching user:", err.message);
+                console.error("Error fetching user:", err?.message);
             }
         }
     };
-    useEffect(()=>{
-            fetchUser()
-    },[])
+    useEffect(() => {
+        if (!userData || Object.keys(userData).length === 0) { 
+            fetchUser();
+        }
+    }, []);
     return (
         <div>
             <NavBar/>

@@ -8,7 +8,8 @@ const feedSlice = createSlice({
             return action.payload
         },
         removeFeed: (state, action)=>{
-            return null
+            const newArray = state.filter((res)=>res._id!==action.payload)
+            return newArray
         }
     }
 });
